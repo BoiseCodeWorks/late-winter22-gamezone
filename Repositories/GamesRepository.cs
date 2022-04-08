@@ -52,6 +52,28 @@ namespace gamezone.Repositories
       }, new { id }).FirstOrDefault();
     }
 
+    internal List<GameViewModel> GetGamesByAccountId(string id)
+    {
+      string sql = @"
+          SELECT
+            a.*,
+            gp.*,
+            g.*
+          FROM gameplayers gp
+          JOIN games g ON gp.gameId = g.id
+          JOIN accounts a ON g.creatorId = a.id
+          WHERE gp.accountId = @id;
+      ";
+      List<GameViewModel> games = _db.Query<Account, GamePlayer, GameViewModel, GameViewModel>(sql, (a, gp, g) =>
+      {
+        g.Creator = a;
+        g.Score = gp.Score;
+        g.GamePlayerId = gp.Id;
+        return g;
+      }, new { id }).ToList<GameViewModel>();
+      return games;
+    }
+
     internal Game Create(Game gameData)
     {
       string sql = @"

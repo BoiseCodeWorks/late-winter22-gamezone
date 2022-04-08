@@ -7,8 +7,14 @@ namespace gamezone.Models
     public string creatorId { get; set; }
     public int RecommendedPlayers { get; set; }
     public string Description { get; set; }
-
-    // virtuals
     public Account? Creator { get; set; }
   }
+
+  public class GameViewModel : Game
+  {
+    public int? Score { get; set; }
+    public int? GamePlayerId { get; set; }
+
+  }
+
 }

@@ -33,5 +33,10 @@ namespace gamezone.Services
       }
       return _gamesRepo.Remove(id);
     }
+
+    internal List<GameViewModel> GetGamesByAccountId(string id)
+    {
+      return _gamesRepo.GetGamesByAccountId(id);
+    }
   }
 }
