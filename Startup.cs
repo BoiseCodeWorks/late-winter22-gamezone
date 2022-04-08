@@ -37,6 +37,8 @@ namespace gamezone
       services.AddScoped<AccountService>();
       services.AddTransient<GamesRepository>();
       services.AddTransient<GamesService>();
+      services.AddTransient<GamePlayersRepository>();
+      services.AddTransient<GamePlayersService>();
     }
 
     private void ConfigureCors(IServiceCollection services)
@@ -45,14 +47,14 @@ namespace gamezone
       {
         options.AddPolicy("CorsDevPolicy", builder =>
               {
-            builder
-                  .AllowAnyMethod()
-                  .AllowAnyHeader()
-                  .AllowCredentials()
-                  .WithOrigins(new string[]{
+                builder
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()
+                      .AllowCredentials()
+                      .WithOrigins(new string[]{
                         "http://localhost:8080", "http://localhost:8081"
+                  });
               });
-          });
       });
     }
 
